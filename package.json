@@ -10,7 +10,9 @@
     "build:firefox:v2": "vite build --mode firefox-v2",
     "build:chrome": "vite build --mode chrome",
     "preview": "vite preview",
-    "resize-icons": "node resize-icons.js"
+    "resize-icons": "node resize-icons.js",
+    "lint:firefox": "web-ext lint -s dist-firefox-mv3",
+    "lint:firefox:v2": "web-ext lint -s dist-firefox-mv2"
   },
   "keywords": [
     "youtube",
@@ -34,6 +36,7 @@
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
     "vite-plugin-web-extension": "^4.4.3",
+    "web-ext": "^7.12.0",
     "webextension-polyfill": "^0.10.0"
   },
   "dependencies": {

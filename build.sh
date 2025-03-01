@@ -76,6 +76,13 @@ else
     cp -r dist/* dist-firefox-mv2/ || { echo "Failed to copy files to Firefox MV2 build directory"; exit 1; }
 fi
 
+# Lint Firefox extensions with web-ext
+echo "Linting Firefox MV3 extension..."
+npm run lint:firefox || { echo "Warning: Firefox MV3 linting found issues"; }
+
+echo "Linting Firefox MV2 extension..."
+npm run lint:firefox:v2 || { echo "Warning: Firefox MV2 linting found issues"; }
+
 # Create zip files
 echo "Creating zip files..."
 

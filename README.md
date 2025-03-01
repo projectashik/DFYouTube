@@ -15,6 +15,38 @@ A browser extension that removes distracting elements from YouTube, allowing you
 - **Hide Shorts**: Remove YouTube Shorts content
 - **Hide Notifications**: Remove notification icons and counters
 
+## Screenshots
+
+<p align="center">
+  <strong>Before: YouTube with distractions</strong><br>
+  <img src="public/screenshots/before-shorts.png" alt="YouTube before DF YouTube" width="700">
+</p>
+
+<p align="center">
+  <strong>After: Clean YouTube experience with DF YouTube</strong><br>
+  <img src="public/screenshots/after.png" alt="YouTube after DF YouTube" width="700">
+</p>
+
+<p align="center">
+  <strong>Before: Video page with distractions</strong><br>
+  <img src="public/screenshots/video-page-before-dfyoutbe.png" alt="YouTube video page before DF YouTube" width="700">
+</p>
+
+<p align="center">
+  <strong>After: Clean video page experience</strong><br>
+  <img src="public/screenshots/video-page-after-dfyoutube.png" alt="YouTube video page after DF YouTube" width="700">
+</p>
+
+<p align="center">
+  <strong>After: Shorts removed</strong><br>
+  <img src="public/screenshots/after-shorts.png" alt="YouTube with Shorts removed" width="700">
+</p>
+
+<p align="center">
+  <strong>After: All distractions removed</strong><br>
+  <img src="public/screenshots/after-all-enabled.png" alt="YouTube with all distractions removed" width="700">
+</p>
+
 ## Installation
 
 ### Chromium-based Browsers (Chrome, Edge, Brave, Arc, Chromium, etc.)
@@ -65,15 +97,11 @@ Firefox versions below 109 only support Manifest V2 extensions.
    cd dfyoutube
    ```
 
-2. Install dependencies
+2. Create the extension files
    ```
-   npm install
+   sh ./build.sh
    ```
 
-3. Start the development server
-   ```
-   npm run dev
-   ```
 
 ### Building
 
