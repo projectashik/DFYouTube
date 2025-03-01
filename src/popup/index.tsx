@@ -89,7 +89,7 @@ const App: React.FC = () => {
         <svg viewBox='0 0 24 24' fill='currentColor'>
           <path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z' />
         </svg>
-        DF Tube Settings
+        DF YouTube Settings
       </h1>
 
       <div className='settings-list'>
@@ -186,7 +186,7 @@ const App: React.FC = () => {
       )}
 
       <div className='footer'>
-        <p>DF Tube - Distraction Free YouTube</p>
+        <p>DF YouTube - Distraction Free YouTube</p>
         <div className='developer-info'>
           <p>Developed by: Ashik Chapagain (Fullstack web developer)</p>
           <p>

@@ -15,9 +15,9 @@ browser.runtime.onInstalled.addListener(async (details) => {
     try {
       // Set default settings
       await browser.storage.sync.set({ hideElements: defaultSettings })
-      console.log("DF Tube: Default settings initialized")
+      console.log("DF YouTube: Default settings initialized")
     } catch (error) {
-      console.error("DF Tube: Error initializing settings", error)
+      console.error("DF YouTube: Error initializing settings", error)
     }
   }
 })
@@ -29,7 +29,7 @@ browser.runtime.onMessage.addListener(async (message) => {
       const result = await browser.storage.sync.get("hideElements")
       return result.hideElements || defaultSettings
     } catch (error) {
-      console.error("DF Tube: Error getting settings", error)
+      console.error("DF YouTube: Error getting settings", error)
       return defaultSettings
     }
   }
