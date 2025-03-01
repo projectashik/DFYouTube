@@ -49,17 +49,24 @@ A browser extension that removes distracting elements from YouTube, allowing you
 
 ## Installation
 
-### Chromium-based Browsers (Chrome, Edge, Brave, Arc, Chromium, etc.)
+### Chromium-based Browsers (Chrome, Brave, Arc, Chromium, etc.)
 
 1. Download the latest release (`dfyoutube-chrome.zip`) from the [Releases](https://github.com/projectashik/dfyoutube/releases/latest) page
 2. Unzip the file
 3. Open your browser's extension page:
    - Chrome: `chrome://extensions/`
-   - Edge: `edge://extensions/`
    - Brave: `brave://extensions/`
    - Arc: Click on the "..." menu → Extensions
    - Other Chromium browsers: Usually accessible via Settings → Extensions
 4. Enable "Developer mode" (usually a toggle in the top-right corner)
+5. Click "Load unpacked" and select the unzipped folder
+
+### Microsoft Edge
+
+1. Download the latest release (`dfyoutube-edge.zip`) from the [Releases](https://github.com/projectashik/dfyoutube/releases/latest) page
+2. Unzip the file
+3. Open Edge's extension page: `edge://extensions/`
+4. Enable "Developer mode" (toggle in the left sidebar)
 5. Click "Load unpacked" and select the unzipped folder
 
 ### Firefox (version 109+)
@@ -112,7 +119,8 @@ You can use the provided build script to build the extension for both Chrome and
 ```
 
 This will create three zip files:
-- `dfyoutube-chrome.zip` - For Chromium-based browsers (Chrome, Edge, Brave, Arc, etc.)
+- `dfyoutube-chrome.zip` - For Chromium-based browsers (Chrome, Brave, Arc, etc.)
+- `dfyoutube-edge.zip` - For Microsoft Edge
 - `dfyoutube-firefox-mv3.zip` - For Firefox version 109+ (Manifest V3)
 - `dfyoutube-firefox-mv2.zip` - For older Firefox versions (Manifest V2)
 
@@ -121,6 +129,11 @@ Or build manually:
 - For Chromium-based browsers:
   ```
   npm run build:chrome
+  ```
+
+- For Microsoft Edge:
+  ```
+  npm run build:edge
   ```
 
 - For Firefox (Manifest V3):
@@ -220,7 +233,8 @@ If you encounter issues with Firefox MV3, try using the MV2 version instead, esp
 
 ## Browser Compatibility
 
-- **Chromium-based browsers** (Chrome, Edge, Brave, Arc, etc.): Fully compatible with the latest versions
+- **Chromium-based browsers** (Chrome, Brave, Arc, etc.): Fully compatible with the latest versions
+- **Microsoft Edge**: Fully compatible with the latest versions
 - **Firefox**:
   - Version 109+ supports Manifest V3
   - Older versions require Manifest V2

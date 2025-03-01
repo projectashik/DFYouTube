@@ -9,6 +9,7 @@
     "build:firefox": "vite build --mode firefox",
     "build:firefox:v2": "vite build --mode firefox-v2",
     "build:chrome": "vite build --mode chrome",
+    "build:edge": "vite build --mode chrome",
     "preview": "vite preview",
     "resize-icons": "node resize-icons.js",
     "resize-screenshots": "node resize-screenshots.js",

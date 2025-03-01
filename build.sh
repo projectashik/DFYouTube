@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # DF YouTube Extension Build Script
-# This script builds the extension for Chrome and Firefox (both MV2 and MV3)
+# This script builds the extension for Chrome, Edge, and Firefox (both MV2 and MV3)
 
 # Exit on error
 set -e
@@ -28,8 +28,8 @@ fi
 
 # Clean dist directory
 echo "Cleaning dist directory..."
-rm -rf dist dist-chrome dist-firefox-mv3 dist-firefox-mv2
-mkdir -p dist dist-chrome dist-firefox-mv3 dist-firefox-mv2
+rm -rf dist dist-chrome dist-edge dist-firefox-mv3 dist-firefox-mv2
+mkdir -p dist dist-chrome dist-edge dist-firefox-mv3 dist-firefox-mv2
 
 # Build for Chrome
 echo "Building for Chrome..."
@@ -44,6 +44,21 @@ else
     # Copy files to Chrome build directory
     echo "Copying files to Chrome build directory..."
     cp -r dist/* dist-chrome/ || { echo "Failed to copy files to Chrome build directory"; exit 1; }
+fi
+
+# Build for Edge (using Chrome build)
+echo "Building for Edge..."
+NODE_ENV=production npm run build:edge || { echo "Edge build failed"; exit 1; }
+
+# Check if dist directory exists and has content
+if [ ! -d "dist" ] || [ -z "$(ls -A dist)" ]; then
+    echo "Warning: dist directory is empty or does not exist after Edge build"
+    # Create dist directory if it doesn't exist
+    mkdir -p dist
+else
+    # Copy files to Edge build directory
+    echo "Copying files to Edge build directory..."
+    cp -r dist/* dist-edge/ || { echo "Failed to copy files to Edge build directory"; exit 1; }
 fi
 
 # Build for Firefox MV3
@@ -92,6 +107,12 @@ cd dist-chrome || { echo "Failed to change directory to dist-chrome"; exit 1; }
 zip -r ../dfyoutube-chrome.zip . || { echo "Failed to create Chrome zip"; exit 1; }
 cd .. || { echo "Failed to return to root directory"; exit 1; }
 
+# Create Edge zip
+echo "Creating Edge zip..."
+cd dist-edge || { echo "Failed to change directory to dist-edge"; exit 1; }
+zip -r ../dfyoutube-edge.zip . || { echo "Failed to create Edge zip"; exit 1; }
+cd .. || { echo "Failed to return to root directory"; exit 1; }
+
 # Create Firefox MV3 zip
 echo "Creating Firefox MV3 zip..."
 cd dist-firefox-mv3 || { echo "Failed to change directory to dist-firefox-mv3"; exit 1; }
@@ -106,6 +127,7 @@ cd .. || { echo "Failed to return to root directory"; exit 1; }
 
 echo "Build complete!"
 echo "Chrome extension: dfyoutube-chrome.zip"
+echo "Edge extension: dfyoutube-edge.zip"
 echo "Firefox MV3 extension: dfyoutube-firefox-mv3.zip"
 echo "Firefox MV2 extension: dfyoutube-firefox-mv2.zip"
 
@@ -116,7 +138,8 @@ echo "or a UUID format like '{12345678-1234-1234-1234-123456789012}'."
 
 echo ""
 echo "Installation instructions:"
-echo "- Chrome/Edge/Brave: Go to chrome://extensions, enable Developer mode, and drag dfyoutube-chrome.zip onto the page."
+echo "- Chrome: Go to chrome://extensions, enable Developer mode, and drag dfyoutube-chrome.zip onto the page."
+echo "- Edge: Go to edge://extensions, enable Developer mode, and drag dfyoutube-edge.zip onto the page."
 echo "- Firefox: Go to about:debugging#/runtime/this-firefox, click 'Load Temporary Add-on', and select dfyoutube-firefox-mv3.zip or dfyoutube-firefox-mv2.zip."
 echo ""
 echo "Troubleshooting:"
