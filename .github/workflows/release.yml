@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
           cache: 'npm'
 
       - name: Install dependencies
@@ -24,16 +24,64 @@ jobs:
       - name: Make build script executable
         run: chmod +x ./build.sh
 
+      # Fix for crypto.getRandomValues issue in GitHub Actions
+      - name: Create .env file for Vite
+        run: |
+          echo "VITE_RANDOM_SEED=$(date +%s)" > .env
+          echo "NODE_OPTIONS=--experimental-vm-modules" >> .env
+
+      # Ensure the crypto polyfill is properly set up
+      - name: Setup crypto polyfill
+        run: |
+          if [ ! -f "crypto-polyfill.js" ]; then
+            echo "Creating crypto polyfill..."
+            cat > crypto-polyfill.js << 'EOL'
+          // crypto-polyfill.js
+          // This file provides a polyfill for crypto.getRandomValues in environments where it's not available
+
+          // Import crypto module for Node.js
+          import crypto from 'crypto';
+
+          // Check if crypto.getRandomValues is not available
+          if (typeof globalThis.crypto === 'undefined' || typeof globalThis.crypto.getRandomValues !== 'function') {
+            console.log('Polyfilling crypto.getRandomValues for build environment');
+
+            // Create a crypto object if it doesn't exist
+            if (typeof globalThis.crypto === 'undefined') {
+              globalThis.crypto = {};
+            }
+
+            // Implement getRandomValues using Node.js crypto module
+            globalThis.crypto.getRandomValues = function(array) {
+              if (!(array instanceof Uint8Array || array instanceof Uint16Array || array instanceof Uint32Array)) {
+                throw new TypeError('Expected a TypedArray');
+              }
+
+              const bytes = crypto.randomBytes(array.length * array.BYTES_PER_ELEMENT);
+              array.set(new Uint8Array(bytes.buffer, 0, array.length * array.BYTES_PER_ELEMENT));
+
+              return array;
+            };
+          }
+
+          export default globalThis.crypto;
+          EOL
+          fi
+
       - name: Build extensions
         run: ./build.sh
 
       - name: Create Release
+        permissions:
+          contents: write
+          pull-requests: write
+          packages: write
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            dftube-chrome.zip
-            dftube-firefox-mv3.zip
-            dftube-firefox-mv2.zip
+            dfyoutube-chrome.zip
+            dfyoutube-firefox-mv3.zip
+            dfyoutube-firefox-mv2.zip
           generate_release_notes: true
           draft: false
           prerelease: false

@@ -1,5 +1,5 @@
 {
-  "name": "dftube",
+  "name": "dfyoutube",
   "version": "1.0.0",
   "description": "Distraction Free YouTube - Remove feeds, comments, recommendations, shorts, and other distractions",
   "type": "module",
@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:firefox": "vite build --mode firefox",
+    "build:firefox:v2": "vite build --mode firefox-v2",
     "build:chrome": "vite build --mode chrome",
     "preview": "vite preview",
     "resize-icons": "node resize-icons.js"

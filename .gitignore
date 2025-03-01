@@ -29,9 +29,9 @@ dist-ssr
 *.sw?
 
 # build files
-dftube-chrome.zip
-dftube-firefox-mv2.zip
-dftube-firefox-mv3.zip
+dfyoutube-chrome.zip
+dfyoutube-firefox-mv2.zip
+dfyoutube-firefox-mv3.zip
 
 # build dist files
 dist-chrome

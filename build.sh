@@ -1,19 +1,22 @@
 #!/bin/bash
 
-# DF Tube Build Script
+# DF YouTube Extension Build Script
+# This script builds the extension for Chrome and Firefox (both MV2 and MV3)
 
-echo "Building DF Tube - Distraction Free YouTube Extension"
+# Exit on error
+set -e
+
+echo "Building DF YouTube - Distraction Free YouTube Extension"
 echo "===================================================="
 
-# Check if Node.js is installed
+# Check if Node.js and npm are installed
 if ! command -v node &> /dev/null; then
-    echo "Node.js is not installed. Please install Node.js before continuing."
+    echo "Node.js is not installed. Please install Node.js and try again."
     exit 1
 fi
 
-# Check if npm is installed
 if ! command -v npm &> /dev/null; then
-    echo "npm is not installed. Please install npm before continuing."
+    echo "npm is not installed. Please install npm and try again."
     exit 1
 fi
 
@@ -25,81 +28,91 @@ fi
 
 # Clean dist directory
 echo "Cleaning dist directory..."
-rm -rf dist dist-firefox-mv2 dist-firefox-mv3 dist-chrome
+rm -rf dist dist-chrome dist-firefox-mv3 dist-firefox-mv2
+mkdir -p dist dist-chrome dist-firefox-mv3 dist-firefox-mv2
 
 # Build for Chrome
-echo "Building extension for Chrome..."
-npm run build:chrome
+echo "Building for Chrome..."
+NODE_ENV=production npm run build:chrome || { echo "Chrome build failed"; exit 1; }
 
-# Create Chrome-specific dist directory
-echo "Creating Chrome-specific dist directory..."
-mkdir -p dist-chrome
-cp -r dist/* dist-chrome/
-# Remove Firefox manifest files from Chrome build
-find dist-chrome -name "manifest.firefox*" -type f -delete
+# Check if dist directory exists and has content
+if [ ! -d "dist" ] || [ -z "$(ls -A dist)" ]; then
+    echo "Warning: dist directory is empty or does not exist after Chrome build"
+    # Create dist directory if it doesn't exist
+    mkdir -p dist
+else
+    # Copy files to Chrome build directory
+    echo "Copying files to Chrome build directory..."
+    cp -r dist/* dist-chrome/ || { echo "Failed to copy files to Chrome build directory"; exit 1; }
+fi
 
-# Create Chrome zip file
-echo "Creating Chrome zip file..."
-cd dist-chrome
-zip -r ../dftube-chrome.zip .
-cd ..
+# Build for Firefox MV3
+echo "Building for Firefox MV3..."
+NODE_ENV=production npm run build:firefox || { echo "Firefox MV3 build failed"; exit 1; }
 
-# Build for Firefox (Manifest V3)
-echo "Building extension for Firefox (Manifest V3)..."
-npm run build:firefox
+# Check if dist directory exists and has content
+if [ ! -d "dist" ] || [ -z "$(ls -A dist)" ]; then
+    echo "Warning: dist directory is empty or does not exist after Firefox MV3 build"
+    # Create dist directory if it doesn't exist
+    mkdir -p dist
+else
+    # Copy files to Firefox MV3 build directory
+    echo "Copying files to Firefox MV3 build directory..."
+    cp -r dist/* dist-firefox-mv3/ || { echo "Failed to copy files to Firefox MV3 build directory"; exit 1; }
+fi
 
-# Create Firefox MV3-specific dist directory
-echo "Creating Firefox MV3-specific dist directory..."
-mkdir -p dist-firefox-mv3
-cp -r dist/* dist-firefox-mv3/
-# Remove Firefox manifest files from MV3 build (we'll use the main manifest.json)
-find dist-firefox-mv3 -name "manifest.firefox*" -type f -delete
+# Build for Firefox MV2
+echo "Building for Firefox MV2..."
+NODE_ENV=production npm run build:firefox:v2 || { echo "Firefox MV2 build failed"; exit 1; }
 
-# Create Firefox Manifest V3 zip file
-echo "Creating Firefox Manifest V3 zip file..."
-cd dist-firefox-mv3
-zip -r ../dftube-firefox-mv3.zip .
-cd ..
+# Check if dist directory exists and has content
+if [ ! -d "dist" ] || [ -z "$(ls -A dist)" ]; then
+    echo "Warning: dist directory is empty or does not exist after Firefox MV2 build"
+    # Create dist directory if it doesn't exist
+    mkdir -p dist
+else
+    # Copy files to Firefox MV2 build directory
+    echo "Copying files to Firefox MV2 build directory..."
+    cp -r dist/* dist-firefox-mv2/ || { echo "Failed to copy files to Firefox MV2 build directory"; exit 1; }
+fi
 
-# Create Firefox Manifest V2 version
-echo "Creating Firefox Manifest V2 version..."
-mkdir -p dist-firefox-mv2
-cp -r dist/* dist-firefox-mv2/
-cp public/manifest.firefox.v2.json dist-firefox-mv2/manifest.json
-# Remove Firefox manifest files from MV2 build
-find dist-firefox-mv2 -name "manifest.firefox*" -type f -delete
+# Create zip files
+echo "Creating zip files..."
 
-# Create Firefox Manifest V2 zip file
-echo "Creating Firefox Manifest V2 zip file..."
-cd dist-firefox-mv2
-zip -r ../dftube-firefox-mv2.zip .
-cd ..
+# Create Chrome zip
+echo "Creating Chrome zip..."
+cd dist-chrome || { echo "Failed to change directory to dist-chrome"; exit 1; }
+zip -r ../dfyoutube-chrome.zip . || { echo "Failed to create Chrome zip"; exit 1; }
+cd .. || { echo "Failed to return to root directory"; exit 1; }
+
+# Create Firefox MV3 zip
+echo "Creating Firefox MV3 zip..."
+cd dist-firefox-mv3 || { echo "Failed to change directory to dist-firefox-mv3"; exit 1; }
+zip -r ../dfyoutube-firefox-mv3.zip . || { echo "Failed to create Firefox MV3 zip"; exit 1; }
+cd .. || { echo "Failed to return to root directory"; exit 1; }
+
+# Create Firefox MV2 zip
+echo "Creating Firefox MV2 zip..."
+cd dist-firefox-mv2 || { echo "Failed to change directory to dist-firefox-mv2"; exit 1; }
+zip -r ../dfyoutube-firefox-mv2.zip . || { echo "Failed to create Firefox MV2 zip"; exit 1; }
+cd .. || { echo "Failed to return to root directory"; exit 1; }
+
+echo "Build complete!"
+echo "Chrome extension: dfyoutube-chrome.zip"
+echo "Firefox MV3 extension: dfyoutube-firefox-mv3.zip"
+echo "Firefox MV2 extension: dfyoutube-firefox-mv2.zip"
 
 echo ""
-echo "Build completed successfully!"
-echo ""
-echo "Chrome extension is available in: dftube-chrome.zip"
-echo "Firefox Manifest V3 extension is available in: dftube-firefox-mv3.zip"
-echo "Firefox Manifest V2 extension is available in: dftube-firefox-mv2.zip"
+echo "Note: For permanent installation in Firefox, the extension ID in public/manifest.firefox.json"
+echo "and public/manifest.firefox.v2.json must be in the format 'name@example.com' (without curly braces)"
+echo "or a UUID format like '{12345678-1234-1234-1234-123456789012}'."
+
 echo ""
 echo "Installation instructions:"
+echo "- Chrome/Edge/Brave: Go to chrome://extensions, enable Developer mode, and drag dfyoutube-chrome.zip onto the page."
+echo "- Firefox: Go to about:debugging#/runtime/this-firefox, click 'Load Temporary Add-on', and select dfyoutube-firefox-mv3.zip or dfyoutube-firefox-mv2.zip."
 echo ""
-echo "For Chrome/Edge/Brave:"
-echo "1. Open browser and go to chrome://extensions/"
-echo "2. Enable 'Developer mode'"
-echo "3. Click 'Load unpacked' and select the extracted dftube-chrome.zip folder"
+echo "Troubleshooting:"
+echo "- If you encounter issues with Firefox MV3, try using the MV2 version instead."
+echo "- For permanent installation in Firefox, you need to sign the extension through the Firefox Add-ons site."
 echo ""
-echo "For Firefox (version 109+):"
-echo "1. Open Firefox and go to about:debugging#/runtime/this-firefox"
-echo "2. Click 'Load Temporary Add-on...'"
-echo "3. Select any file in the extracted dftube-firefox-mv3.zip folder"
-echo ""
-echo "For Firefox (older versions):"
-echo "1. Open Firefox and go to about:debugging#/runtime/this-firefox"
-echo "2. Click 'Load Temporary Add-on...'"
-echo "3. Select any file in the extracted dftube-firefox-mv2.zip folder"
-echo ""
-echo "Note: For permanent installation in Firefox, the extension ID must be in the format 'name@example.com'."
-echo "For Firefox Add-ons Store, it's recommended to use the Manifest V2 version for broader compatibility."
-echo ""
-echo "Thank you for using DF Tube!"
