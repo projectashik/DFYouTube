@@ -181,6 +181,23 @@ node resize-icons.js
 
 This will automatically generate the required icon sizes.
 
+### Screenshot Preparation
+
+For store submissions, you may need screenshots in specific dimensions. The project includes scripts to resize screenshots:
+
+```
+# Install Sharp if not already installed
+npm install sharp
+
+# Resize all screenshots to 1280x800 for Chrome Web Store
+npm run resize-screenshots
+
+# Or use the advanced script with more options
+npm run resize-screenshots:advanced
+```
+
+The advanced script (`resize-screenshots-advanced.js`) can be configured to generate screenshots for multiple stores with different dimensions. Edit the configuration section in the script to customize the output.
+
 ## How It Works
 
 DF YouTube uses CSS to hide distracting elements on YouTube. When you toggle a setting in the popup, the extension applies or removes CSS classes to hide or show the corresponding elements.
