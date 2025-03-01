@@ -4,6 +4,7 @@
   <img src="public/icons/icon128.png" alt="DF YouTube Logo" width="128" height="128">
 </p>
 
+
 A browser extension that removes distracting elements from YouTube, allowing you to focus on the content you want to watch without being pulled into endless scrolling or recommendations.
 
 ## Features
