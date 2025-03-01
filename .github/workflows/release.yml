@@ -8,6 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -72,10 +76,6 @@ jobs:
         run: ./build.sh
 
       - name: Create Release
-        permissions:
-          contents: write
-          pull-requests: write
-          packages: write
         uses: softprops/action-gh-release@v1
         with:
           files: |
