@@ -1,0 +1,179 @@
+/* DF Tube Popup Styles */
+:root {
+  --primary-color: #ff0000;
+  --primary-hover: #cc0000;
+  --text-color: #333;
+  --bg-color: #fff;
+  --border-color: #ddd;
+  --success-color: #4caf50;
+  --error-color: #f44336;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  width: 320px;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+}
+
+.container {
+  padding: 16px;
+}
+
+h1 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+h1 svg {
+  width: 24px;
+  height: 24px;
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.setting-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.setting-description {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Toggle Switch */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-color);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--primary-color);
+}
+
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+/* Status message */
+.status-message {
+  margin-top: 12px;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  background-color: var(--success-color);
+  color: white;
+  animation: fadeOut 1.5s ease-in-out forwards;
+  animation-delay: 1s;
+}
+
+.status-message.error {
+  background-color: var(--error-color);
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.footer {
+  margin-top: 16px;
+  font-size: 12px;
+  text-align: center;
+  color: #666;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+.footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.developer-info {
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.developer-info p {
+  margin-bottom: 4px;
+}
+
+.developer-info a {
+  font-weight: 500;
+}
