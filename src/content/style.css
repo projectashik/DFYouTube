@@ -1,11 +1,7 @@
 /* DF YouTube - Distraction Free YouTube */
 
 /* Hide Home Feed */
-.df-hide-feed ytd-browse[page-subtype="home"],
-.df-hide-feed ytd-browse[role="main"][page-subtype="home"],
-.df-hide-feed ytd-two-column-browse-results-renderer[page-subtype="home"],
-.df-hide-feed ytd-rich-grid-renderer,
-.df-hide-feed ytd-rich-grid-row {
+.df-hide-feed ytd-browse[page-subtype="home"] {
   display: none !important;
 }
 
@@ -29,7 +25,6 @@
 
 /* Hide Shorts */
 .df-hide-shorts ytd-reel-shelf-renderer,
-.df-hide-shorts ytd-rich-section-renderer,
 .df-hide-shorts ytd-shorts,
 .df-hide-shorts [title="Shorts"],
 .df-hide-shorts [aria-label="Shorts"],
@@ -48,21 +43,62 @@
 /* Clean up the UI when elements are hidden */
 body:has(.df-hide-recommendations) #primary {
   width: 100% !important;
-  max-width: 1280px !important;
+  max-width: 100% !important;
   margin: 0 auto !important;
 }
 
 /* Make video player larger when recommendations are hidden */
 body:has(.df-hide-recommendations) #player-container-outer,
-body:has(.df-hide-recommendations) #player {
-  max-width: 1280px !important;
+body:has(.df-hide-recommendations) #player,
+body:has(.df-hide-recommendations) #player-container {
+  max-width: 100% !important;
   width: 100% !important;
+  height: auto !important;
+}
+
+body:has(.df-hide-recommendations) .html5-video-container,
+body:has(.df-hide-recommendations) .html5-video-player {
+  height: inherit !important;
+  width: inherit !important;
+}
+
+/* Make video take full container width and height */
+body:has(.df-hide-recommendations) .html5-main-video,
+body:has(.df-hide-recommendations) .html5-video-container,
+body:has(.df-hide-recommendations) video {
+  width: 100% !important;
+  height: 100% !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+/* Adjust player aspect ratio for better viewing */
+body:has(.df-hide-recommendations) .html5-video-player {
+  width: 100% !important;
+  max-height: calc(100vh - 160px) !important;
 }
 
 /* Center the video when recommendations are hidden */
 body:has(.df-hide-recommendations) #columns {
-  max-width: 1280px !important;
+  max-width: 100% !important;
   margin: 0 auto !important;
+}
+
+/* Fix horizontal scrollbar on video page */
+body:has(.df-hide-recommendations) {
+  overflow-x: hidden !important;
+}
+
+body:has(.df-hide-recommendations) ytd-watch-flexy {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+body:has(.df-hide-recommendations) #page-manager {
+  margin: 0 auto !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
 }
 
 /* Hide sidebar menu items */
