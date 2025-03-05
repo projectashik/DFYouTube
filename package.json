@@ -1,6 +1,6 @@
 {
   "name": "dfyoutube",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Distraction Free YouTube - Remove feeds, comments, recommendations, shorts, and other distractions",
   "type": "module",
   "scripts": {

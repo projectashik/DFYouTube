@@ -9,7 +9,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Get the version from git tag
-
 const getGitTag = () => {
   try {
     const tag = execSync('git describe --tags --abbrev=0').toString().trim();
