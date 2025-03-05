@@ -1,10 +1,15 @@
 {
   "manifest_version": 3,
   "name": "DF YouTube - Distraction Free YouTube",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Remove feeds, comments, recommendations, shorts, and other distractions from YouTube",
-  "permissions": ["storage", "activeTab"],
-  "host_permissions": ["*://*.youtube.com/*"],
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://*.youtube.com/*"
+  ],
   "action": {
     "default_popup": "src/popup/index.html",
     "default_icon": {
@@ -24,9 +29,15 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*.youtube.com/*"],
-      "js": ["src/content/index.ts"],
-      "css": ["src/content/style.css"],
+      "matches": [
+        "*://*.youtube.com/*"
+      ],
+      "js": [
+        "src/content/index.ts"
+      ],
+      "css": [
+        "src/content/style.css"
+      ],
       "run_at": "document_start"
     }
   ]
