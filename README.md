@@ -4,6 +4,17 @@
   <img src="public/icons/icon128.png" alt="DF YouTube Logo" width="128" height="128">
 </p>
 
+<p align="center">
+  <a href="https://chromewebstore.google.com/detail/df-youtube-distraction-fr/ikeajfeodalhkonnaiklhpakinnghgaa">
+    <img src="https://img.shields.io/badge/Chrome-Add%20to%20Chrome-green?style=for-the-badge&logo=google-chrome" alt="Chrome Web Store">
+  </a>
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/df-youtube-by-ashik/">
+    <img src="https://img.shields.io/badge/Firefox-Add%20to%20Firefox-orange?style=for-the-badge&logo=firefox-browser" alt="Firefox Add-ons">
+  </a>
+  <a href="https://microsoftedge.microsoft.com/addons/detail/gmmnflbmpmdmbbgjdahhkalpiccfbpfj">
+    <img src="https://img.shields.io/badge/Edge-Add%20to%20Edge-blue?style=for-the-badge&logo=microsoft-edge" alt="Microsoft Edge Add-ons">
+  </a>
+</p>
 
 A browser extension that removes distracting elements from YouTube, allowing you to focus on the content you want to watch without being pulled into endless scrolling or recommendations.
 
@@ -49,7 +60,15 @@ A browser extension that removes distracting elements from YouTube, allowing you
 
 ## Installation
 
-### Chromium-based Browsers (Chrome, Brave, Arc, Chromium, etc.)
+### Browser Extension Stores
+
+- **Chrome Web Store**: [DF YouTube - Distraction Free YouTube](https://chromewebstore.google.com/detail/df-youtube-distraction-fr/ikeajfeodalhkonnaiklhpakinnghgaa)
+- **Firefox Add-ons**: [DF YouTube by Ashik](https://addons.mozilla.org/en-US/firefox/addon/df-youtube-by-ashik/)
+- **Microsoft Edge Add-ons**: [DF YouTube](https://microsoftedge.microsoft.com/addons/detail/gmmnflbmpmdmbbgjdahhkalpiccfbpfj)
+
+### Manual Installation
+
+#### Chromium-based Browsers (Chrome, Brave, Arc, Chromium, etc.)
 
 1. Download the latest release (`dfyoutube-chrome.zip`) from the [Releases](https://github.com/projectashik/dfyoutube/releases/latest) page
 2. Unzip the file
@@ -61,7 +80,7 @@ A browser extension that removes distracting elements from YouTube, allowing you
 4. Enable "Developer mode" (usually a toggle in the top-right corner)
 5. Click "Load unpacked" and select the unzipped folder
 
-### Microsoft Edge
+#### Microsoft Edge
 
 1. Download the latest release (`dfyoutube-edge.zip`) from the [Releases](https://github.com/projectashik/dfyoutube/releases/latest) page
 2. Unzip the file
@@ -69,7 +88,7 @@ A browser extension that removes distracting elements from YouTube, allowing you
 4. Enable "Developer mode" (toggle in the left sidebar)
 5. Click "Load unpacked" and select the unzipped folder
 
-### Firefox (version 109+)
+#### Firefox (version 109+)
 
 Firefox version 109 and above supports Manifest V3 extensions.
 
@@ -78,7 +97,7 @@ Firefox version 109 and above supports Manifest V3 extensions.
 3. Open Firefox and go to `about:debugging#/runtime/this-firefox`
 4. Click "Load Temporary Add-on..." and select any file in the unzipped folder
 
-### Firefox (older versions)
+#### Firefox (older versions)
 
 Firefox versions below 109 only support Manifest V2 extensions.
 
